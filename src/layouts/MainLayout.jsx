@@ -5,7 +5,9 @@ function MainLayout({ children }) {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#f5f7fb"
+        backgroundColor: "#0A1414",
+        pt: "75px",
+        width: "100%"
       }}
     >
       {children}

@@ -1,48 +1,48 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Added routing tools
+import { Link, useLocation } from 'react-router-dom'; 
 import { AppBar, Toolbar, Typography, Box, Button, Avatar } from '@mui/material';
 import { 
   DashboardOutlined, 
   CalendarTodayOutlined, 
   BookOutlined, 
   FavoriteBorderOutlined, 
-  RestaurantOutlined, 
-  FitnessCenterOutlined,
   KeyboardArrowDown, 
   WbSunnyOutlined,
-  MenuBookOutlined
+  MenuBook // Made sure to keep this stable icon
 } from '@mui/icons-material';
 
-// Color definitions matching your design
 const COLORS = {
   navActive: '#1F3535',
   fontJournal: '"Caveat", "Comic Sans MS", cursive'
 };
 
 export default function Navbar() {
-  const location = useLocation(); // Automatically tracks what page the user is currently looking at
+  const location = useLocation(); 
 
-  // Added exact router URL paths to match your App.jsx configuration
   const navItems = [
     { text: 'Dashboard', path: '/dashboard', icon: <DashboardOutlined fontSize="small" /> },
     { text: 'Planner', path: '/planner', icon: <CalendarTodayOutlined fontSize="small" /> },
     { text: 'Journal', path: '/journal', icon: <BookOutlined fontSize="small" /> },
     { text: 'Health', path: '/health', icon: <FavoriteBorderOutlined fontSize="small" /> },
-    { text: 'Docs', path: '/documentation', icon: <MenuBookOutlined fontSize="small" /> },
+    { text: 'Docs', path: '/documentation', icon: <MenuBook fontSize="small" /> },
   ];
 
   return (
     <AppBar 
-      position="static" 
+      position="fixed" // 🌟 Changed this to fixed so it stays stuck at the top!
       sx={{ 
-        backgroundColor: 'rgba(10,20,20,0.8)', 
+        backgroundColor: 'rgba(10,20,20,0.8)', // Semi-see-through background
+        backdropFilter: 'blur(8px)', // 🌟 Blurs things behind it so it looks super clean when you scroll!
         backgroundImage: 'none', 
         boxShadow: 'none', 
-        borderBottom: '1px solid #1A2E2E' 
+        borderBottom: '1px solid #1A2E2E',
+        top: 0,
+        left: 0,
+        right: 0
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between', px: 4 }}>
-        {/* Brand Logo - Clicking it routes back to the main dashboard page */}
+        {/* Brand Logo */}
         <Typography 
           variant="h5" 
           component={Link}
@@ -60,14 +60,13 @@ export default function Navbar() {
         {/* Navigation Menu links */}
         <Box sx={{ display: 'flex', gap: 1 }}>
           {navItems.map((item) => {
-            // Checks if the current browser URL matches the item path to light it up active
             const isItemActive = location.pathname === item.path;
 
             return (
               <Button
                 key={item.text}
-                component={Link} // Converts the button into a React Router link element
-                to={item.path}   // Sets the navigation target path destination
+                component={Link} 
+                to={item.path}   
                 startIcon={item.icon}
                 sx={{
                   color: isItemActive ? '#68C3A3' : '#8A9A5B',

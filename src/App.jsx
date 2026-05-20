@@ -12,6 +12,9 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Journal from "./pages/Journal";
 import Documentation from "./pages/Documentation";
+import HealthPage from "./pages/HealthPage";
+import Planner from "./pages/Planner";
+
 
 function App() {
   return (
@@ -28,6 +31,15 @@ function App() {
           <Route
             path="/dashboard"
             element={<Dashboard />}
+          />
+
+           <Route
+            path="/health"
+            element={<HealthPage />}
+          />
+          <Route
+            path="/planner"
+            element={<Planner />}
           />
 
           <Route
