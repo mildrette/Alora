@@ -71,22 +71,20 @@ Alora aims to become a complete digital wellness ecosystem that helps users impr
 
 ## Frontend
 - React
-- Next.js
-- Tailwind CSS
+- Meterial Ui
 - Framer Motion
 
 ## Backend
+<!-- note i do not know how to write code in  node.js  -->
 - Node.js
-- Next.js API Routes
 
-## Database
-- PostgreSQL
-- Prisma ORM
 
 ## Authentication
+<!-- note i do not know how to write this either  -->
 - Clerk / Firebase Auth
 
 ## Hosting
+<!-- note i do not know how to write this either  -->
 - Vercel
 - Neon / Supabase
 
@@ -96,12 +94,13 @@ Alora aims to become a complete digital wellness ecosystem that helps users impr
 
 ```bash
 /src
-  /app
+  /assets
   /components
   /hooks
-  /lib
+  /context
+  /layouts
+  /pages
+  /routes
   /services
   /styles
-  /types
   /utils
-  /api
