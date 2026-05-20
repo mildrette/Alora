@@ -1,6 +1,5 @@
-
-
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom'; // Added routing tools
 import { AppBar, Toolbar, Typography, Box, Button, Avatar } from '@mui/material';
 import { 
   DashboardOutlined, 
@@ -10,7 +9,8 @@ import {
   RestaurantOutlined, 
   FitnessCenterOutlined,
   KeyboardArrowDown, 
-  WbSunnyOutlined 
+  WbSunnyOutlined,
+  MenuBookOutlined
 } from '@mui/icons-material';
 
 // Color definitions matching your design
@@ -20,13 +20,15 @@ const COLORS = {
 };
 
 export default function Navbar() {
+  const location = useLocation(); // Automatically tracks what page the user is currently looking at
+
+  // Added exact router URL paths to match your App.jsx configuration
   const navItems = [
-    { text: 'Dashboard', icon: <DashboardOutlined fontSize="small" /> },
-    { text: 'Planner', icon: <CalendarTodayOutlined fontSize="small" /> },
-    { text: 'Journal', icon: <BookOutlined fontSize="small" />, active: true },
-    { text: 'Habits', icon: <FavoriteBorderOutlined fontSize="small" /> },
-    { text: 'Meals', icon: <RestaurantOutlined fontSize="small" /> },
-    { text: 'Workouts', icon: <FitnessCenterOutlined fontSize="small" /> },
+    { text: 'Dashboard', path: '/dashboard', icon: <DashboardOutlined fontSize="small" /> },
+    { text: 'Planner', path: '/planner', icon: <CalendarTodayOutlined fontSize="small" /> },
+    { text: 'Journal', path: '/journal', icon: <BookOutlined fontSize="small" /> },
+    { text: 'Health', path: '/health', icon: <FavoriteBorderOutlined fontSize="small" /> },
+    { text: 'Docs', path: '/documentation', icon: <MenuBookOutlined fontSize="small" /> },
   ];
 
   return (
@@ -40,13 +42,16 @@ export default function Navbar() {
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between', px: 4 }}>
-        {/* Brand Logo */}
+        {/* Brand Logo - Clicking it routes back to the main dashboard page */}
         <Typography 
           variant="h5" 
+          component={Link}
+          to="/"
           sx={{ 
             fontFamily: COLORS.fontJournal, 
             color: '#68C3A3', 
-            fontWeight: 'bold' 
+            fontWeight: 'bold',
+            textDecoration: 'none'
           }}
         >
           Alora
@@ -54,22 +59,29 @@ export default function Navbar() {
 
         {/* Navigation Menu links */}
         <Box sx={{ display: 'flex', gap: 1 }}>
-          {navItems.map((item) => (
-            <Button
-              key={item.text}
-              startIcon={item.icon}
-              sx={{
-                color: item.active ? '#68C3A3' : '#8A9A5B',
-                backgroundColor: item.active ? COLORS.navActive : 'transparent',
-                textTransform: 'none',
-                borderRadius: 2,
-                px: 2,
-                '&:hover': { backgroundColor: COLORS.navActive }
-              }}
-            >
-              {item.text}
-            </Button>
-          ))}
+          {navItems.map((item) => {
+            // Checks if the current browser URL matches the item path to light it up active
+            const isItemActive = location.pathname === item.path;
+
+            return (
+              <Button
+                key={item.text}
+                component={Link} // Converts the button into a React Router link element
+                to={item.path}   // Sets the navigation target path destination
+                startIcon={item.icon}
+                sx={{
+                  color: isItemActive ? '#68C3A3' : '#8A9A5B',
+                  backgroundColor: isItemActive ? COLORS.navActive : 'transparent',
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 2,
+                  '&:hover': { backgroundColor: COLORS.navActive }
+                }}
+              >
+                {item.text}
+              </Button>
+            );
+          })}
         </Box>
 
         {/* User controls / Settings Profile */}
@@ -86,7 +98,7 @@ export default function Navbar() {
             M
           </Avatar>
           <KeyboardArrowDown sx={{ color: '#8A9A5B' }} />
-          <WbSunnyOutlined sx={{ color: '#8A9A5B', ml: 1, fontSize: 20 }} />
+          <WbSunnyOutlined sx={{ color: '#8A9A5B', ml: 1, fontSize: 20, cursor: 'pointer' }} />
         </Box>
       </Toolbar>
     </AppBar>

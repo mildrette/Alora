@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Journal from "./pages/Journal";
+import Documentation from "./pages/Documentation";
 
 function App() {
   return (
@@ -38,6 +39,12 @@ function App() {
             path="/journal"
             element={<Journal />}
           />
+
+               <Route
+            path="/documentation"
+            element={<Documentation />}
+          />
+
         </Routes>
       </MainLayout>
     </BrowserRouter>
